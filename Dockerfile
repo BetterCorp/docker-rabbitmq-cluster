@@ -1,4 +1,4 @@
-ARG RABBIT_C_VERSION=latest
+ARG RABBIT_C_VERSION=management
 
 FROM rabbitmq:$RABBIT_C_VERSION
 
