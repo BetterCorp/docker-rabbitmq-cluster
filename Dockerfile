@@ -1,4 +1,4 @@
-FROM rabbitmq:3.8-management
+FROM rabbitmq:management-alpine
 
 COPY ./rabbitmq.conf /etc/rabbitmq/rabbitmq.conf
 COPY ./startup.sh /etc/rabbitmq/startup.sh
