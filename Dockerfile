@@ -1,6 +1,4 @@
-ARG RABBIT_C_VERSION=management
-
-FROM rabbitmq:$RABBIT_C_VERSION
+FROM rabbitmq:3.8-management
 
 COPY ./rabbitmq.conf /etc/rabbitmq/rabbitmq.conf
 COPY ./startup.sh /etc/rabbitmq/startup.sh
