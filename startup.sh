@@ -5,13 +5,17 @@ get_rabbit_node_env_value () {
   rabbitmq_node_env_value="${!temp_hostname_env_var}"
 }
 
-echo "@BETTERCORP/RABBITMQ: CLUSTER BOOTUP SEQ";
+echo "@BetterWeb/docker-rabbitmq-cluster: CLUSTER BOOTUP SEQ";
+
+if [ -e "/var/lib/rabbitmq/.erlang.cookie" ]; then
+  chmod 100 /var/lib/rabbitmq/.erlang.cookie;
+fi 
 
 cluster_node_number=1
 get_rabbit_node_env_value "${cluster_node_number}";
 while [ ! -z "${rabbitmq_node_env_value}" ]
 do
-  echo "@BETTERCORP/RABBITMQ: CLUSTER BOOTUP SEQ: ${cluster_node_number}=${rabbitmq_node_env_value}";
+  echo "@BetterWeb/docker-rabbitmq-cluster: CLUSTER BOOTUP SEQ: ${cluster_node_number}=${rabbitmq_node_env_value}";
   cluster_command_line="cluster_formation.classic_config.nodes.${cluster_node_number} = ${rabbitmq_node_env_value}";
   echo -e $cluster_command_line >> /etc/rabbitmq/rabbitmq.conf;
 
@@ -19,6 +23,6 @@ do
   get_rabbit_node_env_value "${cluster_node_number}";
 done
 
-echo "@BETTERCORP/RABBITMQ: CLUSTER BOOTUP SEQ: READY WITH $((cluster_node_number+-1)) NODE(S)";
+echo "@BetterWeb/docker-rabbitmq-cluster: CLUSTER BOOTUP SEQ: READY WITH $((cluster_node_number+-1)) NODE(S)";
 
 rabbitmq-server;
